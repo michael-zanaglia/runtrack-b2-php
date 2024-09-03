@@ -20,7 +20,11 @@
 
     $res = my_array_sort([2,24,12,7,34], 'ASC');
     $res2 = my_array_sort([8,5,23,89,6,10], 'DESC');
-
+    $res3 = my_array_sort(["banane","arbre","zebre","sucre"], 'ASC');
+    $res4 = my_array_sort(["photo", "lumiere", "briller", "soleil", "aveuglant"], 'DESC');
+    
     var_dump($res);
     var_dump($res2);
+    var_dump($res3);
+    var_dump($res4);
 ?>
