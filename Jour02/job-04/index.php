@@ -17,16 +17,18 @@
         }
     }
 
-    function find_one_student(string $email) : array {
+    function find_all_students_grade() : array {
         $db = ConnexionDataBase();
-        $query = $db -> prepare("SELECT * FROM student WHERE email = ? "); 
-        $query -> execute([$email]);
-        return $query -> fetchAll();
+        $query = $db -> prepare("SELECT grade.name, email, fullname FROM student INNER JOIN grade ON grade.id = grade_id"); 
+        $query -> execute();
+        return $query -> fetchAll(PDO::FETCH_ASSOC);
     }
     $res = false;
-    if(isset($_GET['name'])){
-       $res = find_one_student($_GET['name']); 
-    }
+
+    $res = find_all_students_grade();
+    echo "<pre>";
+   var_dump($res);
+    echo "</pre>";
     
 ?>
 
@@ -46,36 +48,26 @@
     </style>
 </head>
 <body>
-    <form action="" method="get">
-        <label for="name">Inserer Email :</label>
-        <input type="email" name="name" required>
-        <button type="submit">Rechercher</button>
-    </form>
     <?php
-        if($res){
-            echo "<table>
+        if($res):?>
+            <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>grade_id</th>
+                        <th>grade</th>
                         <th>email</th>
                         <th>fullname</th>
-                        <th>birthdate</th>
-                        <th>gender</th>
                     </tr>
                 </thead>
-                <tbody>";
-            foreach($res as $row){
-                echo "<tr><td>".$row['id']."</td>
-                        <td>".$row['grade_id']."</td>
-                        <td>".$row['email']."</td>
-                        <td>".$row['fullname']."</td>
-                        <td>".$row['birthdate']."</td>
-                        <td>".$row['gender']."</td></tr>"; 
-            }
-            echo "</tbody>
-            </table>";
-        }
-    ?>
+                <tbody>
+            <?php foreach($res as $row):?>
+                <tr>
+                    <td><?=$row['name']?></td>
+                    <td><?=$row['email']?></td>
+                    <td><?=$row['fullname']?></td>
+                </tr> 
+            <?php endforeach ?>    
+                </tbody>
+            </table>
+        <?php endif ?>
 </body>
 </html>
