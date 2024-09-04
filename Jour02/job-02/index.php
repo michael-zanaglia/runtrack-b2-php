@@ -17,7 +17,7 @@
         }
     }
 
-    function find_all_students(string $email) : array {
+    function find_one_student(string $email) : array {
         $db = ConnexionDataBase();
         $query = $db -> prepare("SELECT * FROM student WHERE email = ? "); 
         $query -> execute([$email]);
