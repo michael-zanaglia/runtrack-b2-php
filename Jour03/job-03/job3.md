@@ -1,0 +1,1 @@
+Les getters et setters sont en places, et les variables sont passées en privés.
